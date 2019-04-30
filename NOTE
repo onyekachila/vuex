@@ -1,0 +1,82 @@
+create a project
+run npm install vuex axios
+create a folder called store and create a file index.js
+then create a modules folder in the store folder and create a file called todos.js
+
+In this file we create four objects 
+a state 
+getters
+actions and 
+mutations then we export all these. normally we state state: state but with es6 we just say state e.t.c
+
+Vuex gives us a single source of truth for our data. i.e. It is a centralised store for our component. 
+global state with vuex is reactive meaning if we update state for one component every other component that uses 
+that state will also get updated at the same time. 
+
+state refers to app level state / data i.e. the current state of our data
+getters : this gets pieces of state or computed values from state
+actions: called from components to commit a mutation
+mutations: this refers to mutating the state (i.e. update the data)
+modules : Each module can have its own state, getters actions and mutation e.g. (post module, auth module etc)
+
+
+So we hard code the todos in the 
+
+We import mapGetters in our component to map data from our vuex to our components.
+To define which getter we want to use, we make use of the computed property.  
+
+We need an action that is going to make a request to get a response and then call a mutation
+The mutation is what actually mutates the state
+
+When we create an action it actually takes in an object which we are going to destructure
+we will be using the commit because that is what we actually use to commit a mutation
+as we dont call the mutation directly.
+
+After getting the data as we can see in the console. because we have 200 todos logged in the
+console. Then we need to add it to the state and this happens through a mutation.
+
+We do this by creating a function called setTodos which ntakes two parameter state and todos
+then take the state.todos and set it to the todos that are passed in.
+
+Then we comment out the console.log that is displaying all our todos in the console
+and use a commmit then set the mutation that we want to call as the first parameter
+and the second parameter is what we want to pass in which in our case is response.data
+
+Next we add another component to add todo and we import it in the app.vue. 
+We also place it above the todo component.
+
+Next in the todos module we will create another function to add todo. 
+The method addTodo will take an object called commit which we will destruct. We will also pass it a title.
+so we are going to make a post request to json.placeholder using axios and we will send along the title.
+we will also send along the completed value as false. 
+
+Then we call a mutation using commit method and pass in the mutation name then we pass the second parameter 
+which will include the new todo. We also set the mutation in the mutation and import it in the add todo component
+to use it we will add methods: and use it with a spread operator to mapActions to addTodo
+
+Next we will add a submit event and handle the preventDefault before submitting
+
+Next we remove todo by creating a method to remove a todo based on the id.
+Next we call the mutation to use when removing the id which is removeTodo.
+
+In the mutation we say we create the removeTodo function and pass it two parameter as usual 
+so we set the state.todos = state.todos.filter() and for each todo we want to return where the todo.id is not equal to the todo of the id
+that was passed in. See code below
+
+removeTodo: (state, id) =>
+    (state.todos = state.todos.filter(todo => todo.id !== id)),
+
+
+next we want to update the todo by changing the color. After using axios to get the todo we want to update
+we want to be in the sa,e place after updating it. We do this by getting the index. 
+
+const index = state.todos.findIndex(todo => todo.id === updTodo.id); this will give us the index
+Next we check if the index exist
+
+Next we update  the todo mapActions with updateTodo.
+
+Next we add a double click event on the iteration to get the todos
+
+
+
+
